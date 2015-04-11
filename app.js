@@ -27,7 +27,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 app.post('/', function(request, response){
-         console.log(request.body.search);
+         console.log('.*'+request.body.search+'.*');
          response.render("index");
          });
 

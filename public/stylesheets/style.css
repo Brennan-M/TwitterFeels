@@ -4,14 +4,11 @@
     padding: 0;
     overflow: hidden;
 }
+
 body{
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     color: white;
     background-color: #b18b7e;
-}
-
-a{
-    color: #00B7FF;
 }
 
 .tbar{
@@ -52,4 +49,8 @@ a{
 .modal-content{
     background-color: #;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#texter{
+    color: #3c1a2b;
 }
