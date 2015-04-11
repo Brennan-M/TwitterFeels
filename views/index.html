@@ -2,13 +2,33 @@
 <html>
 	<head>
         <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	</head>
 	<body>
 		<div id="titleBar" class="row">
             <div class="col-md-1 tbar"><h4 id="ptitle">TwitterFeels</h4></div>
             <div class="col-md-9 tbar" id ="searchcol"><input type="text" name="searchQuery" id="sbar"/><button type="button" class="btn-primary">Feel it Out</button></div>
-            <div class="col-md-1 tbar"><h5 id="about">About</h5></div>
+            <div class="col-md-1 tbar">
+            
+            <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
+                About
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 id="myModalLabel">This is an Explanation.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
         <div>
 	</body>
 </html>
