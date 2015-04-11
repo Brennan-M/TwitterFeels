@@ -5,8 +5,11 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var Twit = require('twit');
 var config = require('./config.json');
-var passport = require('passport')
+var passport = require('passport');
+var mongo = require('./Mongo.js');
 var TwitterStrategy = require('passport-twitter').Strategy;
+var sentiment = require('sentiment');
+var cities = require('cities');
  
 
   app.use(Express.static('public'));
@@ -16,7 +19,17 @@ var TwitterStrategy = require('passport-twitter').Strategy;
   app.use(passport.initialize());
   app.use(passport.session());
 
-
+var processTweet = function(data){
+	var text = data['text'];
+	var coordinates = data['coordinates'];
+	if(coordinates !== null && coordinates !== ''){
+		coordinates = coordinates['coordinates'];
+		var state = cities.gps_lookup(parseFloat(coordinates[1]), parseFloat(coordinates[0]))['state'];
+		var rating = sentiment(text)['score'];
+		var results = {'text':text, 'state':state, 'sentiment':rating};
+		return results;
+	}
+}
 
 passport.use(new TwitterStrategy({
     consumerKey: config.CONSUMER_KEY,
@@ -64,14 +77,25 @@ app.get('/amiauthed', function (req, res) {
 	var east = '-66.9'
 	var south = '25.8'
 	var north = '49.4'
-	// TODO: What order does this location need to be in????
-	var unitedStates = [ '-124.8', '24.4', '-66.9', '49.4' ]
+	var unitedStates = [ west, south, east, north ]
 
 	var stream = T.stream('statuses/filter', { locations: unitedStates })
 
 	stream.on('tweet', function (tweet) {
-	  console.log(tweet.coordinates);
+	  var insertParams = { url: config.mongo_url
+	                     , collection: config.mongo_collection
+	  };
+	  insertParams.docs = processTweet(tweet);
+	  if (insertParams.docs !== undefined) {
+	    mongo.insertDocs(insertParams, function(err){
+	  	  if (err) {
+	  	    console.log(err);
+	  	  }
+	    });
+	  };
+
 	});
+
 	stream.on('error', function (error) {
 		throw error;
 	});
