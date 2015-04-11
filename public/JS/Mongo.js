@@ -30,3 +30,15 @@ mongo.find = function(params, callback) {
     });
   });
 }
+
+mongo.aggregate = function(params, callback) {
+  MongoClient.connect(params.url, function(err, db) {
+    assert.equal(null, err);
+    var collection = db.collection(params.collection);
+    collection.aggregate(params.sequence).toArray(function(err, items) {
+      db.close();
+      assert.equal(null, err);
+      callback(err, items);
+    });
+  });
+}
