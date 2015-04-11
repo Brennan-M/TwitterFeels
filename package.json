@@ -18,6 +18,9 @@
     "serve-favicon": "~2.2.0",
     "twitter": "^1.2.5",
     "ejs": "~2.3.1",
-    "sentiment": "~1.0.2"
+    "sentiment": "~1.0.2",
+    "lodash": "~3.6.0",
+    "cities": "~1.1.0",
+    "twit": "~1.1.20"
   }
 }

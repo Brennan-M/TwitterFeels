@@ -13,6 +13,11 @@ var getState = function(lat, lng){
 processTweets._transform = function(data, encoding, done){
 	var text = data['text'];
 	var coordinates = data['coordinates'];
-	this.push(results);
+	if(coordinates !== undefined && coordinates !== ''){
+		var state = cities.gps_lookup(coordinates[0], coordinates[1])['state'];
+		var rating = sentiment(text);
+		var results = {'text':text, 'state':state, 'sentiment':rating};
+		this.push(results);
+	}
 	done();
 }
