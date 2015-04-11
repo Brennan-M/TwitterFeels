@@ -9,24 +9,37 @@
 	<body>
 		<div id="titleBar" class="row">
             <div class="col-md-1 tbar"><h4 id="ptitle">TwitterFeels</h4></div>
-            <div class="col-md-9 tbar" id ="searchcol"><input type="text" name="searchQuery" id="sbar"/><button type="button" class="btn-primary">Feel it Out</button></div>
+            <div class="col-md-9 tbar" id ="searchcol">
+                
+                <form method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search for...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" value="Add" type="submit">Feel it Out</button>
+                        </span>
+                    </div>
+                </form>
+                
+            </div>
             <div class="col-md-1 tbar">
-            
             <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
                 About
             </button>
             
             <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 id="myModalLabel">This is an Explanation.</h4>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 id="myModalLabel">TwitterFeels is an application that displays the state-by-state sentiment on a given topic. Just type in a word or phrase of interest and see the nation's opinion!</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <h5 id="myModalLabel">Developed by Ian Char, Brennan McConnell, Denis Kazakov, and Seth Perry</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             
             </div>
         <div>
