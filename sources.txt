@@ -1,0 +1,10 @@
+http://stackoverflow.com/questions/7282236/placing-an-image-to-the-top-right-corner-css
+http://www.color-hex.com
+w3.schools.com (html and CSS)
+http://stackoverflow.com/questions/3616572/how-to-position-a-div-in-bottom-right-corner-of-a-browser
+http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/
+https://www.codeofaninja.com/2014/05/bootstrap-tutorial-beginners-step-step.html
+http://css3generator.com
+http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3
+http://stackoverflow.com/questions/18192114/how-to-use-vertical-align-in-bootstrap
+http://getbootstrap.com/css/
