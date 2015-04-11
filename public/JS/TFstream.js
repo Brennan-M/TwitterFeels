@@ -8,8 +8,7 @@ var config = require('./config.json');
 var passport = require('passport')
 var TwitterStrategy = require('passport-twitter').Strategy;
 var sentiment = require('sentiment'),
-	cities = require('cities'),
-	stream = require('stream');
+	cities = require('cities');
  
 
   app.use(Express.static('public'));
@@ -18,11 +17,6 @@ var sentiment = require('sentiment'),
   app.use(session({secret: 'TFeels'}));
   app.use(passport.initialize());
   app.use(passport.session());
-
-//Stream Transform
-var writeTweets = new stream.Stream();
-writeTweets.writable = true;
-writeTweets.write = function(data) {return true};
 
 var processTweet = function(data){
 	var text = data['text'];
@@ -34,18 +28,6 @@ var processTweet = function(data){
 		var results = {'text':text, 'state':state, 'sentiment':rating};
 		return results;
 	}
-}
-processTweets._transform = function(data, encoding, done){
-	var text = data['text'];
-	var coordinates = data['coordinates'];
-	if(coordinates !== null && coordinates !== ''){
-		coordinates = coordinates['coordinates'];
-		var state = cities.gps_lookup(parseFloat(coordinates[1]), parseFloat(coordinates[0]))['state'];
-		var rating = sentiment(text)['score'];
-		var results = {'text':text, 'state':state, 'sentiment':rating};
-		this.push(results);
-	}
-	done();
 }
 
 passport.use(new TwitterStrategy({
@@ -100,7 +82,7 @@ app.get('/amiauthed', function (req, res) {
 	var stream = T.stream('statuses/filter', { locations: unitedStates })
 
 	stream.on('tweet', function (tweet) {
-	  process.
+	  console.log(processTweet(tweet));
 	});
 	stream.on('error', function (error) {
 		throw error;
