@@ -24,4 +24,4 @@ search.queryDB = function(result) {
 	});
 };
 
-search.queryDB('.*fuck.*');
+search.queryDB('.*Obama.*');
