@@ -1,17 +1,14 @@
 #titleBar{
-    background-color: #148BCF;
+    background-color: #3c1a2b;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
+
 body{
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     color: white;
-    background-color: white;
-}
-
-a{
-    color: #00B7FF;
+    background-color: #b18b7e;
 }
 
 .tbar{
@@ -24,21 +21,14 @@ a{
     text-align: left;
 }
 
-#sbar{
-    display: inline-block;
-    text-align: left;
-    width: 25em;
-    color: black;
-}
-
 #about{
-    text-align: right;
-    padding-left: 7em;
+    float: right !important;
 }
 
 #searchcol{
     text-align: left;
     padding-left: 4em;
+    padding-right: 25em;
 }
 
 #myModalLabel{
@@ -54,4 +44,13 @@ a{
     border: none;
     margin: 0;
     padding: 0;
+}
+
+.modal-content{
+    background-color: #;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#texter{
+    color: #3c1a2b;
 }

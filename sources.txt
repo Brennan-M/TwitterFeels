@@ -8,3 +8,8 @@ http://css3generator.com
 http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3
 http://stackoverflow.com/questions/18192114/how-to-use-vertical-align-in-bootstrap
 http://getbootstrap.com/css/
+http://pubs.usgs.gov/of/2006/1251/Baselayers/state_bounds-faq.html#getacopy.4
+http://stackoverflow.com/questions/4295782/how-do-you-extract-post-data-in-node-js
+http://stackoverflow.com/questions/5710358/how-to-get-post-query-in-express-node-js
+http://stackoverflow.com/questions/26516022/node-js-and-express-post-404
+http://expressjs.com/api.html
