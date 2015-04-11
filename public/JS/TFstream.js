@@ -3,7 +3,7 @@ var app = Express();
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var Twitter = require('twitter');
+var Twit = require('twit');
 var config = require('./config.json');
 var passport = require('passport')
 var TwitterStrategy = require('passport-twitter').Strategy;
@@ -52,20 +52,23 @@ app.get('/auth/twitter/callback',
                                      failureRedirect: '/login' }));
 
 app.get('/amiauthed', function (req, res) {
-	var client = new Twitter({
-	  consumer_key: config.CONSUMER_KEY,
-	  consumer_secret: config.CONSUMER_SECRET,
-	  access_token_key: req.session.passport.user.token,
-	  access_token_secret: req.session.passport.user.tokenSecret
+	var T = new Twit({
+	    consumer_key:         config.CONSUMER_KEY
+	  , consumer_secret:      config.CONSUMER_SECRET
+	  , access_token:         req.session.passport.user.token
+	  , access_token_secret:  req.session.passport.user.tokenSecret
 	});
-	client.stream('statuses/filter', function(stream) {
-	  stream.on('data', function(tweet) {
-	    console.log(tweet.text);
-	  });
-	 
-	  stream.on('error', function(error) {
-	    throw error;
-	  });
+
+	// TODO: Get these bounds!
+	var unitedStates = [ '-124.8', '24.4', '-66.9', '49.4' ]
+
+	var stream = T.stream('statuses/filter', { language: 'en' })
+
+	stream.on('tweet', function (tweet) {
+	  console.log(tweet.geo, tweet.location, tweet.coordinates);
+	});
+	stream.on('error', function (error) {
+		throw error;
 	});
 
 	res.send(req.session);
