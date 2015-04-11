@@ -1,3 +1,5 @@
 { "CONSUMER_KEY": "<Info>"
 , "CONSUMER_SECRET": "<Info>"
+, "mongo_url": "mongodb://localhost:27017/TFeels"
+, "mongo_collection": "tweets"
 }
