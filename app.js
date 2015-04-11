@@ -26,6 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+app.post('/', function(request, response){
+         console.log(request.body.search);
+         response.render("index");
+         });
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -56,9 +61,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-app.post('/add', function(request, response){
-         console.log('worked');
-         });
 
 module.exports = app;
