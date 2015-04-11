@@ -6,6 +6,7 @@ var session = require('express-session');
 var Twit = require('twit');
 var config = require('./config.json');
 var passport = require('passport')
+var mongo = require('./Mongo.js');
 var TwitterStrategy = require('passport-twitter').Strategy;
  
 
@@ -59,13 +60,18 @@ app.get('/amiauthed', function (req, res) {
 	  , access_token_secret:  req.session.passport.user.tokenSecret
 	});
 
-	// TODO: Get these bounds!
-	var unitedStates = [ '-124.8', '24.4', '-66.9', '49.4' ]
 
-	var stream = T.stream('statuses/filter', { language: 'en' })
+	var west = '-124.3'
+	var east = '-66.9'
+	var south = '25.8'
+	var north = '49.4'
+	// TODO: What order does this location need to be in????
+	var unitedStates = [ west, south, east, north ]
+
+	var stream = T.stream('statuses/filter', { locations: unitedStates })
 
 	stream.on('tweet', function (tweet) {
-	  console.log(tweet.geo, tweet.location, tweet.coordinates);
+	  console.log(tweet.geo);
 	});
 	stream.on('error', function (error) {
 		throw error;
