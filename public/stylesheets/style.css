@@ -6,7 +6,7 @@
 }
 
 body{
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "Exo 2", serif;
     color: white;
     background-color: #b18b7e;
 }
@@ -47,7 +47,6 @@ body{
 }
 
 .modal-content{
-    background-color: #;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
