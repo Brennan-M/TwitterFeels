@@ -92,8 +92,10 @@ app.get('/amiauthed', function (req, res) {
 	var south = '25.8'
 	var north = '49.4'
 	var unitedStates = [ west, south, east, north ]
+	var Alaska = [ '130', '51.2', '172', '71.6']
+	var Hawaii = [ '154.5', '18.5', '178', '28.3']
 
-	var stream = T.stream('statuses/filter', { locations: unitedStates })
+	var stream = T.stream('statuses/filter', { locations: [unitedStates, Alaska, Hawaii] })
 
 	stream.on('tweet', function (tweet) {
 	  var insertParams = { url: config.mongo_url
