@@ -61,14 +61,14 @@
                     "</table>";
             }
             
-            var stateData ={};  /* Sample random data. */   
+            var stateData = {};  /* Sample random data. */   
             var max = 0
             var min = 0
 
             function stateDraw(data){ //data = all the states JSONS
                 //for all - get max, min => store them
                 for (var i = 0; i < data.length; i++){
-                    var volume = data[i]['avgSentiment'] * data[i]['intensity']; //ADD intensity
+                    var volume = data[i]['avgSentiment'] //ADD intensity
                     if(data[i]['avgSentiment'] < 0){
                         if ((-volume) > min){
                             min = -volume
@@ -82,7 +82,7 @@
                 }
                 //for all - stateData[d] based on volume/maxVol OR volume/minVol
                 for (var i = 0; i < data.length; i++){
-                    var rating = data[i]['avgSentiment'] * data[i]['intensity'];
+                    var rating = data[i]['avgSentiment'];
                     if(data[i]['avgSentiment'] < 0){ //if negative sentiment - color Pallete
                         stateData[data[i]._id] = d3.interpolate("#A6A8AB", "#370119")(-rating/min);
                     }
@@ -95,18 +95,8 @@
                 }
                     //2 cases of drawing - don't forget to multiply by (-1)
             }
-
-            function redraw() { //redr
-                for (var i = 0; i < states.length; i++){
-                    stateData[d]={vol:0, color:d3.interpolate("#AB3E5B", "#ADD8C7")(0)}; 
-                     /* draw states on id #statesvg */
-                     uStates.draw("#statesvg", stateData, tooltipHtml(data[i]._id, data[i]['avgSentiment']));
-                }
-                max = 0
-                min = 0
-            }
             
-            
+            uStates.draw("#statesvg", [], tooltipHtml);
         </script>
         </div>
         <div class="col-md-2" style="border-left: 0.5px solid #3c1a2b; width: 400px !important; padding-left: 0em;">
@@ -136,8 +126,9 @@
                     $.post('/search', {"query": $("#inputbox").val()}, function(data){
                            stateDraw(data);
                            uStates.draw("#statesvg", stateData, tooltipHtml);
-                           console.log(data[1])
+                           console.log(stateData)
                     });
+                    stateData = {}
                     $.post('/popular', {"query": $("#inputbox").val()}, function(data){
                            addRight(data);
                     });
