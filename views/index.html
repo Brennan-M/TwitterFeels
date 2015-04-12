@@ -45,7 +45,8 @@
             </div>
         </div>
 
-
+        <div class="row" style="width: 1370px !important;">
+        <div class="col-md-9" style="width: 970px !important;">
         <div id="tooltip"></div><!-- div to hold tooltip. -->
         <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
         <script src="/JS/us.js"></script> <!-- creates uStates. -->
@@ -83,5 +84,15 @@
             /* draw states on id #statesvg */   
             uStates.draw("#statesvg", sampleData, tooltipHtml);
         </script>
+        </div>
+        <div class="col-md-2" id="toptweets" style="border-left: 5px solid #ccc; width: 400px !important; padding-left: 2em;">
+            <div class="row"><h2>Top Tweets</h2></div>
+            <script>
+                for(i =0;i<10;i++){
+                document.write("<div class='row' style='height: 100px !important; border-top: 1px solid #ccc;'><h3>Top Tweets</h3></div>");
+                }
+            </script>
+        </div>
+        </div>
 	</body>
 </html>

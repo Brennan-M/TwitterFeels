@@ -13,3 +13,6 @@ http://stackoverflow.com/questions/4295782/how-do-you-extract-post-data-in-node-
 http://stackoverflow.com/questions/5710358/how-to-get-post-query-in-express-node-js
 http://stackoverflow.com/questions/26516022/node-js-and-express-post-404
 http://expressjs.com/api.html
+http://stackoverflow.com/questions/11815081/how-can-i-add-a-line-between-two-columns-using-twitter-bootstraps-grid-system
+http://www.ryerson.ca/JavaScript/lectures/flowControl/loops/writingTables/simpleTable.html
+http://www.bootply.com/5l9bZ7ZOt6
