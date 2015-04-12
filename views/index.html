@@ -15,11 +15,11 @@
             <div class="col-md-1 tbar"><h4 id="ptitle">TwitterFeels</h4></div>
             <div class="col-md-9 tbar" id ="searchcol">
                 
-                <form method="post" action="/">
+                <form id="coolbutton">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Search for...">
+                        <input type="text" class="form-control" name="query" placeholder="Search for..." id="inputbox">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Feel it Out</button>
+                        <button class="btn btn-default" type="submit" >Feel it Out</button>
                         </span>
                     </div>
                 </form>
@@ -51,6 +51,14 @@
         <script src="/JS/us.js"></script> <!-- creates uStates. -->
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script>
+            
+            $("#coolbutton").submit(function () {
+                $.post('/search', {"query": $("#inputbox").val()}, function(data){
+                       alert(data);
+                       //INsert Map coloring Code Here
+                });
+                return false;
+            });
 
             function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
                 return "<h4>"+n+"</h4><table>"+

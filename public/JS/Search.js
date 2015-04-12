@@ -1,9 +1,10 @@
 var config = require('./config.json');
 var mongo = require('./Mongo.js');
+var app = require('./../../app.js');
 
 var search = exports = module.exports = {};
 
-search.queryDB = function(result) {
+search.queryDB = function(result, hollaback) {
 	var params = { config: config
 	             , url: config.mongo_url
 	             , collection: config.mongo_collection
@@ -20,8 +21,6 @@ search.queryDB = function(result) {
 	             };
 
 	mongo.aggregate(params, function(err, data) {
-	  console.log(data);
+        hollaback(err, data);
 	});
 };
-
-search.queryDB('.*Obama.*');
