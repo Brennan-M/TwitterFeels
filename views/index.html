@@ -25,7 +25,7 @@
                 </form>
                 
             </div>
-            <div class="col-md-1 tbar" style="width: 200px !important;">
+            <div class="col-md-2 tbar" style="width: 200px !important;">
                 <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
                 About
                 </button>
@@ -43,22 +43,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1 tbar" style="width: 200px !important;">
-                <button type="button" class="text" data-toggle="modal" data-target="#myModal1" id="about">
-                    Acknowledgements
-                </button>
-                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 id="myModalLabel">TwitterFeels is not affiliated with Twitter.</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
         
         
@@ -71,9 +55,9 @@
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script>
 
-            function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+            function tooltipHtml(n,d){ /* function to create html content string in tooltip div. */
                 return "<h4>"+n+"</h4><table>"+
-                    "<tr><td>Sentiment</td><td>"+(d)+"</td></tr>"+
+                    "<tr><td>Sentiment</td><td>"+d+"</td></tr>"+
                     "</table>";
             }
             
@@ -115,8 +99,8 @@
             function redraw() { //redr
                 for (var i = 0; i < states.length; i++){
                     stateData[d]={vol:0, color:d3.interpolate("#AB3E5B", "#ADD8C7")(0)}; 
-                     /* draw states on id #statesvg */   
-                    uStates.draw("#statesvg", stateData, tooltipHtml);
+                     /* draw states on id #statesvg */
+                     uStates.draw("#statesvg", stateData, tooltipHtml(data[i]._id, data[i]['avgSentiment']));
                 }
                 max = 0
                 min = 0
@@ -130,20 +114,20 @@
                 <h2>Twitter's Favorites</h2>
             </div>
             <div class="col" id="toptweets" style="width: 40em !important; padding-left: 2em;">
-                <div class="col-md-2" id="rightBar" style="border-left: 5px solid #000; width: 30em !important; padding-left: 2em; z-index: -1">
+                <div class="col-md-2" id="rightBar" style="width: 30em !important; padding-left: 0em; z-index: -1">
             <script>
                 var counter = 0;
                 var addRight = function(data){
                     $("." +counter).remove();
                     for(var i = 0;i < data.length;i++){
-                        var color = "EFEFEF";
+                        var color = "CECECE";
                         if(parseFloat(data[i]['sentiment']['score']) < 0){
                             color = "FF9999";
                         }
                         if(parseFloat(data[i]['sentiment']['score']) > 0){
                             color = "A5D2FF";
                         }
-                        $("#rightBar").append("<div class='row " + (counter + 1) + "' style='width: 30em !important; border-top: 1px solid #000000; opacity: 0.5; background-color:#" + color +";''><h4>" + data[i]['text'] + "</h4><br><h6>Retweets: " + data[i]['retweets'] + "<br> Favorites: " + data[i]['favorites'] + "<br>Sentiment: " + data[i]['sentiment']['score'] + "</h6</div>");
+                        $("#rightBar").append("<div class='row " + (counter + 1) + "' style='width: 30em !important; border-top: 1px solid #000000; opacity: 0.7; background-color:#" + color +";''><h4>" + data[i]['text'] + "</h4><br><h6>Retweets: " + data[i]['retweets'] + "<br> Favorites: " + data[i]['favorites'] + "<br>Sentiment: " + data[i]['sentiment']['score'] + "</h6</div>");
                     }
                     counter++;
                 }

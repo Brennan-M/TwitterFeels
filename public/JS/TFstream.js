@@ -92,8 +92,8 @@ app.get('/amiauthed', function (req, res) {
 	var south = '25.8'
 	var north = '49.4'
 	var unitedStates = [ west, south, east, north ]
-	var Alaska = [ '130', '51.2', '172', '71.6']
-	var Hawaii = [ '154.5', '18.5', '178', '28.3']
+	var Alaska = [ '-180', '51.2', '-130', '71.6']
+	var Hawaii = [ '-160', '18.9', '-154', '22.2']
 
 	var stream = T.stream('statuses/filter', { locations: [unitedStates, Alaska, Hawaii] })
 
@@ -142,7 +142,6 @@ TFstream.getPopular = function(keyword, callback) {
 	  for (i in tweet.statuses) {
 	  	trends.push(processTrending(tweet.statuses[i]));
 	  }
-	  console.log(trends);
 	  callback(err,trends);
 	});	
 	}
@@ -151,4 +150,4 @@ TFstream.getPopular = function(keyword, callback) {
 	}
 }
 
-app.listen(3001);
+app.listen(3000);
