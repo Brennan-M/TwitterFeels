@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var srch = require('./public/JS/Search.js');
+
+var app = exports = module.exports = {};
+
 var app = express();
 
 // view engine setup
@@ -26,10 +30,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-app.post('/', function(request, response){
-         console.log('.*'+request.body.search+'.*');
-         response.render("index");
-         });
+
+app.post('/search', function(request, response){
+    console.log(request.body.query);
+    srch.queryDB('.*' + request.body.query + '.*', function (err, data) {
+         if(err) {
+            console.log("oopsies", err);
+         }
+                 console.log(data);
+                 response.send(data);
+    });
+    //response.send("This one works!!!");
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

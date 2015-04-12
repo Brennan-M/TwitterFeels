@@ -2,48 +2,86 @@
 <html>
 	<head>
         <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.4-dist/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-            <script src="/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
-            <script src="/JS/Search.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Exo+2">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+        <script src="/JS/Search.js"></script>
             
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	</head>
 	<body>
+        
 		<div id="titleBar" class="row">
             <div class="col-md-1 tbar"><h4 id="ptitle">TwitterFeels</h4></div>
             <div class="col-md-9 tbar" id ="searchcol">
                 
-                <form method="post" action="/">
+                <form id="coolbutton">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Search for...">
+                        <input type="text" class="form-control" name="query" placeholder="Search for..." id="inputbox">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Feel it Out</button>
+                        <button class="btn btn-default" type="submit" >Feel it Out</button>
                         </span>
                     </div>
                 </form>
                 
             </div>
             <div class="col-md-1 tbar">
-            <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
+                <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
                 About
-            </button>
-            
-            <!-- Modal -->
+                </button>
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 id="myModalLabel">TwitterFeels is an application that displays the state-by-state sentiment on a given topic. Just type in a word or phrase of interest and see the nation's opinion!</h4>
+                                <h4 id="myModalLabel">TwitterFeels is an application that displays the state-by-state sentiment on a given topic. Just type in a word or phrase of interest and see the nation's opinion! TwitterFeels was developed during the 2015 HackCU competition.</h4>
                             </div>
                             <div class="modal-footer">
-                                <h5 id="myModalLabel">Developed by Ian Char, Brennan McConnell, Denis Kazakov, and Seth Perry</h5>
+                                <h5 id="myModalLabel">Developed by <a href=https://github.com/IanChar>Ian Char</a>, <a href=https://github.com/Brennan-M>Brennan McConnell</a>, <a href=https://github.com/94kazakov>Denis Kazakov</a>, and <a href=https://github.com/sperry94>Seth Perry</a><br> &copy; 2015 </h5>
                             </div>
                         </div>
                     </div>
                 </div>
-            
             </div>
         </div>
+
+
+        <div id="tooltip"></div><!-- div to hold tooltip. -->
+        <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+        <script src="/JS/us.js"></script> <!-- creates uStates. -->
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script>
+            
+            $("#coolbutton").submit(function () {
+                $.post('/search', {"query": $("#inputbox").val()}, function(data){
+                       alert(data);
+                       //INsert Map coloring Code Here
+                });
+                return false;
+            });
+
+            function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+                return "<h4>"+n+"</h4><table>"+
+                    "<tr><td>Avg. Sentiment:</td><td>"+(d.avg)+"</td></tr>"+
+                    "</table>";
+            }
+            
+            var sampleData ={}; /* Sample random data. */   
+            ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+            "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+            "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
+            "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
+            "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
+                .forEach(function(d){ 
+                    var low=Math.round(100*Math.random()), 
+                        mid=Math.round(100*Math.random()), 
+                        high=Math.round(100*Math.random());
+                    sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
+                            avg:Math.round((low+mid+high)/3), color:d3.interpolate("#F3C0AF", "#3C1A2B")(low/100)}; 
+                });
+            
+            /* draw states on id #statesvg */   
+            uStates.draw("#statesvg", sampleData, tooltipHtml);
+        </script>
 	</body>
 </html>
