@@ -39,7 +39,8 @@ var processTrending = function(data) {
 	var retweets = data['retweet_count'];
 	var favorites = data['favorite_count'];
 	var coordinates = data['coordinates'];
-	var results = {'text':text, 'retweets':retweets, 'favorites':favorites};
+	var feels = sentiment(data['text']);
+	var results = {'text':text, 'retweets':retweets, 'favorites':favorites, 'sentiment':feels};
 	return results;
 
 }

@@ -1,15 +1,16 @@
 #titleBar{
-    background-color: #3c1a2b;
+    background-color: #222f5b;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    color: white;
 }
 
 
 body{
-    font: 14px "Exo 2", serif;
-    color: white;
-    background-color: #b18b7e;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
+    background-color: #cecece;
 }
 
 .tbar{
@@ -29,7 +30,7 @@ body{
 #searchcol{
     text-align: left;
     padding-left: 4em;
-    padding-right: 25em;
+    padding-right: 15em;
 }
 
 #myModalLabel{
@@ -102,4 +103,10 @@ body{
 }
 #tooltip tr td:nth-child(2){
     text-align:center;
+}
+
+#toptweets{
+    height: 600px !important;
+    border-bottom: 0.5px solid #3c1a2b;
+    overflow-y: scroll;
 }
