@@ -23,5 +23,3 @@ search.queryDB = function(result) {
 	  console.log(data);
 	});
 };
-
-search.queryDB('.*fuck.*');
