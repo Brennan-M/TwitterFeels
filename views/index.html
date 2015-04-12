@@ -70,37 +70,62 @@
         <script src="/JS/us.js"></script> <!-- creates uStates. -->
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script>
-            
-            $("#coolbutton").submit(function () {
-                $.post('/search', {"query": $("#inputbox").val()}, function(data){
-                       alert(data);
-                       //INsert Map coloring Code Here
-                });
-                return false;
-            });
 
             function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
                 return "<h4>"+n+"</h4><table>"+
-                    "<tr><td>Avg. Sentiment:</td><td>"+(d.avg)+"</td></tr>"+
+                    "<tr><td>Sentiment</td><td>"+(d)+"</td></tr>"+
                     "</table>";
             }
             
-            var sampleData ={}; /* Sample random data. */   
-            ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
-            "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
-            "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
-            "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
-            "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-                .forEach(function(d){ 
-                    var low=Math.round(100*Math.random()), 
-                        mid=Math.round(100*Math.random()), 
-                        high=Math.round(100*Math.random());
-                    sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
-                            avg:Math.round((low+mid+high)/3), color:d3.interpolate("#F3C0AF", "#3C1A2B")(low/100)}; 
-                });
+            var stateData ={};  /* Sample random data. */   
+            var data = [{ "intensity" : 5, "_id" : "Arizona", "sentiment" : 2 },{ "intensity" : 5, "_id" : "Colorado", "sentiment" : 10}]
+            var max = 0
+            var min = 0
+
+            function stateDraw(data){ //data = all the states JSONS
+                //for all - get max, min => store them
+                for (var i = 0; i < data.length; i++){
+                    var volume = data[i]['sentiment'] * data[i]['intensity']; //ADD intensity
+                    if(data[i]['sentiment'] < 0){
+                        if ((-volume) > min){
+                            min = -volume
+                        }
+                    }
+                    if(data[i]['sentiment'] > 0){
+                        if (volume > max){
+                            max = volume
+                        }
+                    }
+                }
+                //for all - stateData[d] based on volume/maxVol OR volume/minVol
+                for (var i = 0; i < data.length; i++){
+                    var rating = data[i]['sentiment'] * data[i]['intensity'];
+                    if(data[i]['sentiment'] < 0){ //if negative sentiment - color Pallete
+                        stateData[data[i]._id] = d3.interpolate("#A6A8AB", "#370119")(-rating/min);
+                    }
+                    else { //another color pallette for positive sentiment
+                        console.log(rating)
+                        console.log(max)
+                        console.log(min)
+                        stateData[data[i]._id] = d3.interpolate("#A6A8AB", "#5EA9DD")(rating/max);
+                    }
+                }
+                    //2 cases of drawing - don't forget to multiply by (-1)
+            }
+
+            function redraw() { //redr
+                for (var i = 0; i < states.length; i++){
+                    stateData[d]={vol:0, color:d3.interpolate("#AB3E5B", "#ADD8C7")(0)}; 
+                     /* draw states on id #statesvg */   
+                    uStates.draw("#statesvg", stateData, tooltipHtml);
+                }
+                max = 0
+                min = 0
+            }
+
+            stateDraw(data)
             
-            /* draw states on id #statesvg */   
-            uStates.draw("#statesvg", sampleData, tooltipHtml);
+            uStates.draw("#statesvg", stateData, tooltipHtml);
         </script>
         </div>
         <div class="col-md-2" style="border-left: 0.5px solid #3c1a2b; width: 400px !important; padding-left: 0em;">
