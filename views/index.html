@@ -107,7 +107,14 @@
                 var addRight = function(data){
                     $("." +counter).remove();
                     for(var i = 0;i < data.length;i++){
-                        $("#rightBar").append("<div class='row " + (counter + 1) + "' style='width: 30em !important; border-top: 1px solid #000000;'><h4>" + data[i]['text'] + "</h4><br><h6>Retweets: " + data[i]['retweets'] + "<br> Favorites: " + data[i]['favorites'] + "<br>Sentiment: " + data[i]['sentiment']['score'] + "</h6</div>");
+                        var color = "EFEFEF";
+                        if(parseFloat(data[i]['sentiment']['score']) < 0){
+                            color = "FF9999";
+                        }
+                        if(parseFloat(data[i]['sentiment']['score']) > 0){
+                            color = "A5D2FF";
+                        }
+                        $("#rightBar").append("<div class='row " + (counter + 1) + "' style='width: 30em !important; border-top: 1px solid #000000; opacity: 0.5; background-color:#" + color +";''><h4>" + data[i]['text'] + "</h4><br><h6>Retweets: " + data[i]['retweets'] + "<br> Favorites: " + data[i]['favorites'] + "<br>Sentiment: " + data[i]['sentiment']['score'] + "</h6</div>");
                     }
                     counter++;
                 }
