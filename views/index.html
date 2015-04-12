@@ -53,13 +53,6 @@
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script>
             
-            $("#coolbutton").submit(function () {
-                $.post('/search', {"query": $("#inputbox").val()}, function(data){
-                       alert(data);
-                       //INsert Map coloring Code Here
-                });
-                return false;
-            });
 
             function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
                 return "<h4>"+n+"</h4><table>"+
@@ -86,11 +79,32 @@
         </script>
         </div>
         <div class="col-md-2" id="toptweets" style="border-left: 5px solid #ccc; width: 400px !important; padding-left: 2em;">
-            <div class="row"><h2>Top Tweets</h2></div>
+            <div class="row">
+                <h2>Top Tweets</h2>
+                <ul id="rightBar">
+                </ul>
+            </div>
             <script>
-                for(i =0;i<10;i++){
-                document.write("<div class='row' style='height: 100px !important; border-top: 1px solid #ccc;'><h3>Top Tweets</h3></div>");
+                var counter = 0;
+                var addRight = function(data){
+                    $("." +counter).remove();
+                    for(var i = 0;i < data.length;i++){
+                        console.log(data[i]);
+                        $("#rightBar").append("<li class='" + (counter + 1) +"'>" + data[i]['text'] + "</li>");
+                    }
+                    counter++;
                 }
+
+                $("#coolbutton").submit(function () {
+                    $.post('/search', {"query": $("#inputbox").val()}, function(data){
+                           alert(data);
+                           //INsert Map coloring Code Here
+                    });
+                    $.post('/popular', {"query": $("#inputbox").val()}, function(data){
+                           addRight(data);
+                    });
+                    return false;
+                });
             </script>
         </div>
         </div>

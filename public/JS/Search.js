@@ -24,5 +24,3 @@ search.queryDB = function(result, hollaback) {
         hollaback(err, data);
 	});
 };
-
-

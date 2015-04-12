@@ -13,6 +13,8 @@ var cities = require('cities');
  
 var trending = exports = module.exports = {};
 
+ var TFstream = exports = module.exports = {};
+
   app.use(Express.static('public'));
   app.use(cookieParser());
   app.use(bodyParser());
@@ -114,12 +116,13 @@ app.get('/amiauthed', function (req, res) {
 	res.send(req.session);
 });
 
-app.get('/page2', function (req, res) {
+TFstream.getPopular = function(keyword, callback) {
+	try{
 	var T = new Twit({
 	    consumer_key:         config.CONSUMER_KEY
 	  , consumer_secret:      config.CONSUMER_SECRET
-	  , access_token:         req.session.passport.user.token
-	  , access_token_secret:  req.session.passport.user.tokenSecret
+	  , access_token:         '3148921273-OtpTEtf2NdAbm9cIH7FsNhlXr9gxhsfs7YCDGor'
+	  , access_token_secret:  'yUtgKo33u4SkGUlIuxJ86sTOh3ZUMCecPVDXtdIgyiUSq'
 	});
 
 	var west = '-124.3'
@@ -129,15 +132,20 @@ app.get('/page2', function (req, res) {
 	var unitedStates = [ west, south, east, north ]
 
 	var trends = [];
-	T.get('search/tweets', { q: req.query.q, result_type: 'popular', locations: unitedStates }, function(err, tweet, response) {
+	T.get('search/tweets', { q: keyword, result_type: 'popular', locations: unitedStates }, function(err, tweet, response) {
+	  if(err){
+	  	console.log(err);
+	  }
 	  for (i in tweet.statuses) {
 	  	trends.push(processTrending(tweet.statuses[i]));
 	  }
 	  console.log(trends);
-	  res.send(trends);
-	});
+	  callback(err,trends);
+	});	
+	}
+	catch(err){
+		console.log(err);
+	}
+}
 
-	
-});
-
-app.listen(3000);
+app.listen(3001);
