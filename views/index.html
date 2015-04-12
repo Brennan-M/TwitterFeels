@@ -2,7 +2,7 @@
 <html>
 	<head>
         <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.4-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Exo+2">
+        <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Niconne|Quicksand'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
         <script src="/JS/Search.js"></script>
@@ -12,8 +12,8 @@
 	<body>
         
 		<div id="titleBar" class="row">
-            <div class="col-md-1 tbar"><h4 id="ptitle">TwitterFeels</h4></div>
-            <div class="col-md-9 tbar" id ="searchcol">
+            <div class="col-md-1 tbar" style="width: 200px !important;"><h3 id="ptitle">TwitterFeels</h3></div>
+            <div class="col-md-7 tbar" style="width: 700px !important;" id ="searchcol">
                 
                 <form id="coolbutton">
                     <div class="input-group">
@@ -25,7 +25,7 @@
                 </form>
                 
             </div>
-            <div class="col-md-1 tbar">
+            <div class="col-md-1 tbar" style="width: 200px !important;">
                 <button type="button" class="text" data-toggle="modal" data-target="#myModal" id="about">
                 About
                 </button>
@@ -43,7 +43,25 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-1 tbar" style="width: 200px !important;">
+                <button type="button" class="text" data-toggle="modal" data-target="#myModal1" id="about">
+                    Acknowledgements
+                </button>
+                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 id="myModalLabel">TwitterFeels is not affiliated with Twitter.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        
+        
 
         <div class="row" style="width: 1370px !important;">
         <div class="col-md-9" style="width: 970px !important;">
@@ -85,14 +103,15 @@
             uStates.draw("#statesvg", sampleData, tooltipHtml);
         </script>
         </div>
-        <div class="col-md-2" id="toptweets" style="border-left: 5px solid #ccc; width: 400px !important; padding-left: 2em;">
-            <div class="row"><h2>Top Tweets</h2></div>
+        <div class="col-md-2" style="border-left: 0.5px solid #3c1a2b; width: 400px !important; padding-left: 0em;">
+            <div class="row" style="padding-left: 2em;" id="tweettitle"><h2>Twitter's Favorites</h2></div>
+            <div class="col" id="toptweets" style="width: 400px !important; padding-left: 40px;">
             <script>
                 for(i =0;i<10;i++){
-                document.write("<div class='row' style='height: 100px !important; border-top: 1px solid #ccc;'><h3>Top Tweets</h3></div>");
+                document.write("<div class='row' style='height: 100px !important; width: 360px !important; border-top: 1px solid #000000;'><h4>Top Tweets</h4></div>");
                 }
             </script>
-        </div>
+            </div>
         </div>
 	</body>
 </html>
