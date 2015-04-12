@@ -11,6 +11,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var sentiment = require('sentiment');
 var cities = require('cities');
  
+var trending = exports = module.exports = {};
 
   app.use(Express.static('public'));
   app.use(cookieParser());
@@ -128,14 +129,15 @@ app.get('/page2', function (req, res) {
 	var unitedStates = [ west, south, east, north ]
 
 	var trends = [];
-	T.get('search/tweets', { q: 'the', result_type: 'popular', locations: unitedStates }, function(err, tweet, response) {
+	T.get('search/tweets', { q: req.query.q, result_type: 'popular', locations: unitedStates }, function(err, tweet, response) {
 	  for (i in tweet.statuses) {
 	  	trends.push(processTrending(tweet.statuses[i]));
 	  }
 	  console.log(trends);
+	  res.send(trends);
 	});
 
-	res.send(req.session);
+	
 });
 
 app.listen(3000);
