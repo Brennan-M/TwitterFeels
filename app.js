@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var srch = require('./public/JS/Search.js');
+var TFstream = require('./public/JS/TFstream.js');
 
 var app = exports = module.exports = {};
 
@@ -32,7 +33,6 @@ app.use('/users', users);
 
 
 app.post('/search', function(request, response){
-    console.log(request.body.query);
     srch.queryDB('.*' + request.body.query + '.*', function (err, data) {
          if(err) {
             console.log("oopsies", err);
@@ -40,8 +40,20 @@ app.post('/search', function(request, response){
                  console.log(data);
                  response.send(data);
     });
-    //response.send("This one works!!!");
 });
+
+app.post('/popular', function(request, response){
+    console.log(request.body.query);
+    TFstream.getPopular(request.body.query, function (err, data) {
+         if(err) {
+            console.log("oopsies", err);
+         }
+         console.log(data);
+         response.send(data);
+    });
+});
+
+app.post('')
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

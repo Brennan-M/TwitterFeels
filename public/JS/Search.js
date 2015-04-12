@@ -24,3 +24,4 @@ search.queryDB = function(result, hollaback) {
         hollaback(err, data);
 	});
 };
+// search.queryDB('.*loons.*', function(err,data){console.log(data)});
