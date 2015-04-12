@@ -11,6 +11,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var sentiment = require('sentiment');
 var cities = require('cities');
  
+var trending = exports = module.exports = {};
 
   app.use(Express.static('public'));
   app.use(cookieParser());
@@ -29,6 +30,16 @@ var processTweet = function(data){
 		var results = {'text':text, 'state':state, 'sentiment':rating};
 		return results;
 	}
+}
+
+var processTrending = function(data) {
+	var text = data['text'];
+	var retweets = data['retweet_count'];
+	var favorites = data['favorite_count'];
+	var coordinates = data['coordinates'];
+	var results = {'text':text, 'retweets':retweets, 'favorites':favorites};
+	return results;
+
 }
 
 passport.use(new TwitterStrategy({
@@ -101,6 +112,32 @@ app.get('/amiauthed', function (req, res) {
 	});
 
 	res.send(req.session);
+});
+
+app.get('/page2', function (req, res) {
+	var T = new Twit({
+	    consumer_key:         config.CONSUMER_KEY
+	  , consumer_secret:      config.CONSUMER_SECRET
+	  , access_token:         req.session.passport.user.token
+	  , access_token_secret:  req.session.passport.user.tokenSecret
+	});
+
+	var west = '-124.3'
+	var east = '-66.9'
+	var south = '25.8'
+	var north = '49.4'
+	var unitedStates = [ west, south, east, north ]
+
+	var trends = [];
+	T.get('search/tweets', { q: req.query.q, result_type: 'popular', locations: unitedStates }, function(err, tweet, response) {
+	  for (i in tweet.statuses) {
+	  	trends.push(processTrending(tweet.statuses[i]));
+	  }
+	  console.log(trends);
+	  res.send(trends);
+	});
+
+	
 });
 
 app.listen(3000);
