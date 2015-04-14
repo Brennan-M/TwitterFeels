@@ -127,6 +127,8 @@
                            console.log(stateData)
                     });
                     stateData = {}
+                    max = 0
+                    min = 0
                     $.post('/popular', {"query": $("#inputbox").val()}, function(data){
                            addRight(data);
                     });
