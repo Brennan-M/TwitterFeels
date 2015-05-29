@@ -126,7 +126,10 @@
                            uStates.draw("#statesvg", stateData, tooltipHtml);
                            console.log(stateData)
                     });
+                    //refreshing vars
                     stateData = {}
+                    min = 0
+                    max = 0
                     $.post('/popular', {"query": $("#inputbox").val()}, function(data){
                            addRight(data);
                     });
