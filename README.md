@@ -1,6 +1,6 @@
 # Overview
 
-TwitterFeels is a web application where users can query on a specific word or phrase in order to see how the United States currently feels about those topics. The map of the United States shows how each state feels about the topic based on color (light is positive, dark is negative) and the right column shows top tweets containing the queried word or phrase. 
+TwitterFeels is a web application where users can query on a specific word or phrase in order to see how the United States currently feels about those topics based on tweets. The map of the United States shows how each state feels about the topic based on color (light is positive, dark is negative) and the right column shows top tweets containing the queried word or phrase. 
 
 # Run Locally
 
